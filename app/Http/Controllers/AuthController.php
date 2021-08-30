@@ -29,6 +29,8 @@ class AuthController extends Controller
             'lastname' => $request->input('lastname'),
             'middlename' => $request->input('middlename'),
             'age' => $request->input('age'),
+            'weight' => $request->input('weight'),
+            'goal' => $request->input('goal'),
         ]);
         return response()->json($user);
     }

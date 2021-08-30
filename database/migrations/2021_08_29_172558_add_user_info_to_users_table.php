@@ -18,6 +18,8 @@ class AddUserInfoToUsersTable extends Migration
             $table->string('lastname');
             $table->string('middlename')->nullable();
             $table->integer('age', false, true)->nullable();
+            $table->string('weight');
+            $table->string('goal');
         });
     }
 
@@ -34,6 +36,8 @@ class AddUserInfoToUsersTable extends Migration
                 'lastname',
                 'middlename',
                 'age',
+                'weight',
+                'goal',
             ]);
         });
     }

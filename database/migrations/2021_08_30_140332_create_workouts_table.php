@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUseridColumnToComputersTable extends Migration
+class CreateWorkoutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,15 @@ class AddUseridColumnToComputersTable extends Migration
      */
     public function up()
     {
-        Schema::table('computers', function (Blueprint $table) {
+        Schema::create('workouts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->float('time_length');
+            $table->string('place');
+            $table->float('current_user_weight');
+            $table->float('calories_burnt');
             $table->integer('user_id', false, true);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +32,6 @@ class AddUseridColumnToComputersTable extends Migration
      */
     public function down()
     {
-        Schema::table('computers', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('workouts');
     }
 }

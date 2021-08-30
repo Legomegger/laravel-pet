@@ -27,6 +27,8 @@ class User extends Authenticatable implements JWTSubject
         'lastname',
         'middlename',
         'age',
+        'weight',
+        'goal',
     ];
 
     /**
@@ -48,11 +50,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function computers() : HasMany
-    {
-        return $this->hasMany(Computer::class);
-    }
-
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -61,5 +58,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function workouts() : HasMany
+    {
+        return $this->hasMany(Workout::class);
     }
 }
