@@ -18,6 +18,7 @@ class Computer extends Model
         'gpu_title',
         'gpu_speed',
         'secondary_memory_size',
+        'user_id',
     ];
 
     public function user() : BelongsTo
