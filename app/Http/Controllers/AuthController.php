@@ -7,7 +7,9 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class AuthController extends Controller
 {
@@ -22,7 +24,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('name')),
+            'password' => bcrypt($request->input('name')),
             'firstname' => $request->input('firstname'),
             'lastname' => $request->input('lastname'),
             'middlename' => $request->input('middlename'),
@@ -36,14 +38,17 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request) : JsonResponse
     {
-        $credentials = request(['name', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
+        $login = $request->name;
+        $password = $request->password;
+        $credentials = [
+            'name' => $login,
+            'password' => $password
+        ];
+        if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
         return $this->respondWithToken($token);
     }
 
